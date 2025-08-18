@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Airflow
+logs/
+airflow.cfg
+webserver_config.py
+
+# Docker
+*.log
+.env
+*.pid
+
+# Data
+data/raw/
+data/sample/
+
+# Tests
+tests/__pycache__/
