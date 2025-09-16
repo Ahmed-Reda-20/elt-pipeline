@@ -21,8 +21,7 @@ CREATE TABLE bronze_products (
     CONSTRAINT valid_ingestion_time CHECK (ingestion_timestamp <= CURRENT_TIMESTAMP),
     CONSTRAINT valid_raw_json CHECK(raw_json IS NOT NULL),
     CONSTRAINT valid_api_product_id CHECK(api_product_id IS NOT NULL),
-    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0),
-    CONSTRAINT unique_api_record UNIQUE (api_product_id, batch_id)  -- Prevent duplicates
+    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0)
 
 
 
@@ -48,9 +47,8 @@ CREATE TABLE bronze_users (
     CONSTRAINT valid_batch_id CHECK (batch_id IS NOT NULL),
     CONSTRAINT valid_ingestion_time CHECK (ingestion_timestamp <= CURRENT_TIMESTAMP),
     CONSTRAINT valid_raw_json CHECK(raw_json IS NOT NULL),
-    CONSTRAINT valid_api_user_id CHECK(api_product_id IS NOT NULL),
-    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0),
-    CONSTRAINT unique_api_record UNIQUE (api_product_id, batch_id)  -- Prevent duplicates
+    CONSTRAINT valid_api_user_id CHECK(api_user_id IS NOT NULL),
+    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0)
 );
 
 CREATE TABLE bronze_carts (
@@ -73,9 +71,8 @@ CREATE TABLE bronze_carts (
     CONSTRAINT valid_batch_id CHECK (batch_id IS NOT NULL),
     CONSTRAINT valid_ingestion_time CHECK (ingestion_timestamp <= CURRENT_TIMESTAMP),
     CONSTRAINT valid_raw_json CHECK(raw_json IS NOT NULL),
-    CONSTRAINT valid_api_cart_id CHECK(api_product_id IS NOT NULL),
-    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0),
-    CONSTRAINT unique_api_record UNIQUE (api_product_id, batch_id)  -- Prevent duplicates
+    CONSTRAINT valid_api_cart_id CHECK(api_cart_id IS NOT NULL),
+    CONSTRAINT positive_data_size CHECK (data_size_bytes > 0)
 );
 
 CREATE TABLE ingestion_log (
@@ -86,6 +83,6 @@ CREATE TABLE ingestion_log (
     source_system VARCHAR(50),
     api_endpoint VARCHAR(100),
     row_count INT,
-    status VARCHAR(20) CHECK (status IN ('IN_PROGRESS', 'SUCCESS', 'FAILED', 'PARTIAL')),
+    status VARCHAR(20) CHECK (status IN ('IN_PROGRESS', 'SUCCESS', 'FAILED')),
     error_message TEXT
 );
