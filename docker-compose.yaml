@@ -84,7 +84,8 @@ services:
       _AIRFLOW_WWW_USER_USERNAME: admin
       _AIRFLOW_WWW_USER_PASSWORD: admin
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'mysecretkey123'
     depends_on:
       postgres-airflow:
         condition: service_healthy
@@ -96,7 +97,8 @@ services:
     container_name: airflow_webserver
     environment:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'mysecretkey123'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./config:/opt/airflow/config
@@ -114,7 +116,8 @@ services:
     container_name: airflow_scheduler
     environment:
       AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql://airflow:airflow@postgres-airflow:5432/airflow
-      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__EXECUTOR: SequentialExecutor
+      AIRFLOW__WEBSERVER__SECRET_KEY: 'mysecretkey123'
     volumes:
       - ./dags:/opt/airflow/dags
       - ./config:/opt/airflow/config
