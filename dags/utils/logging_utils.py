@@ -19,4 +19,4 @@ def end_ingestion_log(batch_id: str, status: str,error_message: str = None):
                 UPDATE ingestion_log
                 SET status = %s, end_time = NOW(), error_message = %s
                 WHERE batch_id = %s
-            """, (status, batch_id, error_message))
+            """, (status, error_message, batch_id))
