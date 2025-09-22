@@ -126,9 +126,22 @@ services:
       airflow-init:
         condition: service_completed_successfully
     command: scheduler
+   
+  #pgadmin is used to connect to the db's and view tables and data to view,exposed on port 8082 local host
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8082:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
 
 volumes:
   raw_data_vol:
   postgres_silver_vol:
   warehouse_data_vol:
   airflow_db_vol:
+  pgadmin_data:
