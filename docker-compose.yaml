@@ -1,57 +1,20 @@
 
 services:
   # Raw Database Container
-  postgres-raw:
+  postgres-dwh:
     image: postgres:13
-    container_name: etl_bronze_db
+    container_name: elt_dwh
     environment:
-      POSTGRES_DB: etl_bronze_db
+      POSTGRES_DB: elt_dwh
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow
     volumes:
-      - raw_data_vol:/var/lib/postgresql/data
-      - ./sql/schemas/bronze_schema:/docker-entrypoint-initdb.d/
+      - dwh_data_vol:/var/lib/postgresql/data
+      - ./sql/dwh_schema:/docker-entrypoint-initdb.d/
     ports:
       - "5433:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U airflow -d etl_bronze_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-  # Data Cleansing and Standardization Database Container
-  postgres-silver:
-    image: postgres:13
-    container_name: etl_silver_db
-    environment:
-      POSTGRES_DB: etl_silver_db
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-    volumes:
-      - postgres_silver_vol:/var/lib/postgresql/data
-      - ./sql/schemas/silver_schema:/docker-entrypoint-initdb.d/
-    ports:
-      - "5434:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U airflow -d etl_silver_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  # WAREHOUSE DATABASE (Clean Analytics Data)
-  postgres-warehouse:
-    image: postgres:13
-    container_name: etl_golden_db
-    environment:
-      POSTGRES_DB: etl_golden_db
-      POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
-    volumes:
-      - warehouse_data_vol:/var/lib/postgresql/data
-      - ./sql/schemas/golden_schema:/docker-entrypoint-initdb.d/
-    ports:
-      - "5435:5432"
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U airflow -d etl_golden_db"]
+      test: ["CMD-SHELL", "pg_isready -U airflow -d elt_dwh"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -140,8 +103,6 @@ services:
       - pgadmin_data:/var/lib/pgadmin
 
 volumes:
-  raw_data_vol:
-  postgres_silver_vol:
-  warehouse_data_vol:
+  dwh_data_vol:
   airflow_db_vol:
   pgadmin_data:
