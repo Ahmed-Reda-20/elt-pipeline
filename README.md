@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Business Case & Problem Statement
+## Business Case & Problem Statement
 Modern companies rely on external APIs and third-party systems (e.g., **e-commerce platforms, payment providers, or CRM tools**) to support analytics and decision-making. However, data from these APIs often comes in **raw JSON form**, which is:  
 
 - **Messy and unstructured** → not directly usable for business reporting  
@@ -26,7 +26,7 @@ To solve this, the project introduces an automated **ELT pipeline** that:
 
 ---
 
-## 🎯 Project Goals  
+## Project Goals  
 - Develop an **incremental ELT pipeline** to automate and optimize API data ingestion  
 - Apply the **Medallion (Bronze/Silver/Gold) architecture** for clean separation of raw, cleaned, and business-ready layers  
 - Implement **logging, lineage, and error handling** to ensure data reliability and governance  
@@ -35,7 +35,7 @@ To solve this, the project introduces an automated **ELT pipeline** that:
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 <p align="center">
   <img src="./docs/airflow_elt_diagram.drawio.png" alt="Pipeline Architecture" width="600"/>
@@ -47,20 +47,20 @@ To solve this, the project introduces an automated **ELT pipeline** that:
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 - **Python** (data ingestion, utilities)  
 - **Apache Airflow** (scheduling & orchestration)  
-- **PostgreSQL** (data storage)  
+- **PostgreSQL** (DWH)  
 - **dbt** (transformations — planned)  
 - **Docker & Docker Compose** (containerization & local environment setup)  
 - *(Future)* **Grafana + Prometheus** for monitoring  
 
 ---
 
-## 🚧 Project Status & Progress
+## Project Status & Progress
 This project is a **work in progress**.  
 
-### ✅ Completed
+### Completed
 - Set up **Docker Compose** for Airflow, Postgres (Bronze DB), and supporting services  
 - Created **Bronze schema initialization** with SQL scripts  
 - Implemented a **recursive validation utility** to check API data against predefined schemas  
@@ -71,25 +71,25 @@ This project is a **work in progress**.
   - Ingest Orders  
 - Successfully ran the DAG in Airflow, with all tasks succeeding  
 
-### 🔮 Planned (High-Level Vision)
-- **Silver layer** with dbt transformations  
-- **Gold layer** with aggregated business metrics  
+### Planned (High-Level Vision)
+- **Silver layer** with dbt for standardized and structured transformations
+- **Gold layer** with dbt for aggregated and business-ready data model transformation  
 - **Dashboards & monitoring** for both pipeline health and analytics  
-- **Testing & CI/CD** for long-term reliability  
+- **Testing & CI/CD** for long-term reliability
 
 ---
 
-## 🗺️ Next Steps Roadmap (Actionable To-Do)
+## Next Steps Roadmap (Actionable To-Do)
 - [ ] **Design Silver layer with dbt** (normalize product, user, and order tables)  
 - [ ] **Implement Gold layer** with aggregated metrics (sales trends, order volume by category, etc.)  
 - [ ] **Add monitoring** with Grafana + Prometheus (track DAG runs, task failures, latency)  
-- [ ] **Expand ingestion** by adding more data sources like real-time currency exchange rate APIs or additional flat file datasets  
+- [ ] **Expand ingestion** by adding more data sources like real-time currency exchange rate APIs or simulate more batches with synthenic data
 - [ ] **Implement CI/CD** for automated testing and deployment (GitHub Actions or similar)  
 - [ ] **Documentation & Tutorials** (how to run locally, example queries, dashboard screenshots)  
 
 ---
 
-## ☁️ Production-Level / Cloud Awareness
+## Production-Level / Cloud Awareness
 While this project runs **locally only**, it is designed with scalability, reliability in mind.  
 Here’s how it could evolve in a **production or cloud environment**:  
 
