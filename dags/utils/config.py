@@ -1,6 +1,6 @@
 DB_CONN = {
-    "host": "postgres-raw",
-    "dbname": "etl_bronze_db",
+    "host": "postgres-dwh",
+    "dbname": "elt_dwh",
     "user": "airflow",
     "password": "airflow"
 }

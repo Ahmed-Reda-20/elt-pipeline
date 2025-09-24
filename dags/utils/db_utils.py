@@ -10,6 +10,6 @@ def get_last_processed_id(table_name: str, id_column_api: str) -> int:
     conn = get_db_connection()
     with conn:
         with conn.cursor() as cur:
-            cur.execute(f"SELECT MAX({id_column_api}) FROM {table_name}")
+            cur.execute(f"SELECT MAX({id_column_api}) FROM bronze.{table_name}")
             result = cur.fetchone()
             return result[0] if result and result[0] else 0
