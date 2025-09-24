@@ -4,12 +4,12 @@ try:
     conn = psycopg2.connect(
         host="localhost",
         port="5433",
-        database="etl_bronze_db", 
+        database="elt_dwh", 
         user="airflow",
         password="airflow"
     )
     cursor = conn.cursor()
-    cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public';")
+    cursor.execute("SELECT table_name FROM bronze.information_schema.tables WHERE table_schema='public';")
     tables = cursor.fetchall()
     print(f"Bronze tables created: {tables}")
     conn.close()
