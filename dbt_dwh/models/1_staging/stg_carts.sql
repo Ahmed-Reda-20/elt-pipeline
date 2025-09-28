@@ -20,5 +20,5 @@ WITH source_data AS (
 )
 
 SELECT 
-    *, CURRENT_TIMESTAMP as transformed_timestamp
+    *, CURRENT_TIMESTAMP as transformation_timestamp
 FROM source_data
