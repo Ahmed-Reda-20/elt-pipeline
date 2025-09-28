@@ -1,0 +1,12 @@
+dbt_dwh:
+  outputs:
+    dev:
+      dbname: elt_dwh
+      host: localhost
+      pass: airflow
+      port: 5433
+      threads: 4
+      type: postgres
+      user: airflow
+      schema: public
+  target: dev

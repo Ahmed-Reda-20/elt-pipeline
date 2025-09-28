@@ -1,0 +1,33 @@
+
+name: 'dbt_dwh'
+version: '1.0.0'
+profile: 'dbt_dwh'
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+
+
+
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  dbt_dwh:
+      # Config indicated by + and applies to all files under models/example/
+    1_staging:
+      +schema: staging
+      +materialized: view
+    2_core:
+      +schema: core
+      +materialized: table
+    3_marts:
+      +schema: marts
+      +materialized: table
+  
+
+
