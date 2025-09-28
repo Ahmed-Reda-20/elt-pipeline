@@ -5,3 +5,4 @@ __pycache__/
 airflow.db
 .DS_Store
 .vscode/
+.user.yml
