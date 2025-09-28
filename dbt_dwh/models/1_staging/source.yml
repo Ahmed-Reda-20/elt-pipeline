@@ -1,0 +1,14 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw API response ingested by airflow with metadata"
+    database: elt_dwh
+    schema: bronze
+    tables:
+    - name: bronze_products
+      description: "products table stores product endpoint json responses with metadata"
+    - name: bronze_users
+      description: "users table stores product endpoint json responses with metadata"
+    - name: bronze_carts
+      description: "carts table stores product endpoint json responses with metadata"

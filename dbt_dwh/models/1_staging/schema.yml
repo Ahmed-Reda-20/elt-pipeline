@@ -1,0 +1,47 @@
+version: 2
+
+models:
+
+  - name: stg_products
+    description: "Staging table for product data"
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: product_title
+        tests: [not_null]
+      - name: product_price
+        tests: [not_null]
+      - name: product_rating
+      - name: product_rating_count
+      - name: bronze_id
+        tests: [not_null]
+      - name: transformation_timestamp
+
+  - name: stg_users
+    description: "Staging table for user data"
+    columns:
+      - name: user_id
+        tests: [not_null, unique]
+      - name: email
+        tests: [not_null, unique]
+      - name: username
+      - name: first_name
+      - name: last_name
+      - name: city
+      - name: bronze_id
+        tests: [not_null]
+      - name: transformation_timestamp
+
+  - name: stg_carts
+    description: "Staging table for cart data"
+    columns:
+      - name: cart_id
+        tests: [not_null, unique]
+      - name: user_id
+        tests: [not_null]
+      - name: cart_date
+        tests: [not_null]
+      - name: products_array
+      - name: bronze_id
+        tests: [not_null]
+      - name: transformed_timestamp
