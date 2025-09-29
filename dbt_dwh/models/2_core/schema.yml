@@ -1,0 +1,34 @@
+version: 2
+
+models:
+  - name: dim_users
+    description: "User dimension"
+    columns:
+      - name: user_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_products
+    description: "Product dimension"
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+
+  - name: fact_cart_items
+    description: "Fact table with cart-product relationships"
+    columns:
+      - name: cart_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('fact_carts')
+              field: cart_id
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_products')
+              field: product_id
