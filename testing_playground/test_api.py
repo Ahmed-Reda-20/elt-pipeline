@@ -137,7 +137,7 @@ def test_product_api():
         validate_schema(product, product_schema)
 
     # Log performance metrics for pipeline planning
-    print(f"📊 Products API response time: {response_time:.3f}s ({len(data)} records)")
+    print(f"Products API response time: {response_time:.3f}s ({len(data)} records)")
 
 def test_user_api():
     """
@@ -169,7 +169,7 @@ def test_user_api():
             validate_schema(user, user_schema)
     
     # Log performance metrics for pipeline planning
-    print(f"📊 Users API response time: {response_time:.3f}s ({len(data)} records)")
+    print(f"Users API response time: {response_time:.3f}s ({len(data)} records)")
 
 def test_cart_api():
     """
@@ -201,4 +201,4 @@ def test_cart_api():
             validate_schema(cart, cart_schema)
 
     # Log performance metrics for pipeline planning
-    print(f"📊 Carts API response time: {response_time:.3f}s ({len(data)} records)")
+    print(f"Carts API response time: {response_time:.3f}s ({len(data)} records)")
