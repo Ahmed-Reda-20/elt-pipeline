@@ -18,7 +18,7 @@ with DAG(
     dag_id="bronze_dag",
     default_args=default_args,
     description="Bronze layer ingestion DAG",
-    schedule_interval=None,  # Manual trigger only
+    schedule_interval=None,  # Manual trigger only, could be adjusted according to needs
     start_date=datetime(2025, 1, 1),
     catchup=False,
     tags=["bronze", "ingestion"],

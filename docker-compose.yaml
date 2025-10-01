@@ -85,7 +85,8 @@ services:
       - ./dags:/opt/airflow/dags
       - ./config:/opt/airflow/config
       - ./data:/opt/airflow/data
-    depends_on:
+      - /var/run/docker.sock:/var/run/docker.sock #mounts to Docker daemon's Unix socket
+    depends_on:                                   #to be used by docker operator that spin up a container for dbt
       airflow-init:
         condition: service_completed_successfully
     command: scheduler
