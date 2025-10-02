@@ -4,7 +4,7 @@
 [![python](https://img.shields.io/badge/Made%20with-Python-blue)]()  
 [![docker](https://img.shields.io/badge/Docker-Compose-informational)]()  
 [![airflow](https://img.shields.io/badge/Apache-Airflow-0099CC)]()  
-[![dbt](https://img.shields.io/badge/dbt-planned-lightgrey)]()  
+[![dbt](https://img.shields.io/badge/dbt-in--progress-blueviolet)]()  
 
 ---
 
@@ -21,14 +21,12 @@ This project simulates a **retail company scenario** where operations depend on 
 To solve this, the project introduces an automated **ELT pipeline** that:  
 - Extracts and stores **raw API data** into a PostgreSQL database, applying a **layered architecture (Landing → Staging → Core → Marts)**  
 - Uses **Apache Airflow** to orchestrate ingestion, manage schedules, and log batch metadata for auditability  
-- Plans **dbt transformations** to clean Landing data into structured Staging tables and aggregated Marts datasets  
+- Applies **dbt transformations** to clean Landing data into structured Staging tables, model Core business entities, and aggregate data in Marts  
 - Lays the foundation for **dashboards and business reporting** (e.g., sales trends, product performance, customer activity)
-
-Although traditional DWH staging often lands tabular data directly, this project introduces a raw **Landing schema** inside Postgres to preserve the original API payloads, support lineage, and allow data replay. This hybrid approach combines lakehouse-inspired raw storage with data warehouse-style transformations.
 
 ---
 
-## Project Goals  
+## Project Goals
 - Develop an **incremental ELT pipeline** to automate and optimize API data ingestion  
 - Apply a **layered DWH architecture** for clean separation of raw, cleaned, and business-ready layers  
 - Implement **logging, lineage, and error handling** to ensure data reliability and governance  
@@ -44,9 +42,9 @@ Although traditional DWH staging often lands tabular data directly, this project
 </p>
 
 - **Landing**: raw JSON payloads with metadata  
-- **Staging** *(planned with dbt)*: cleaned, structured tables  
-- **Core** *(planned with dbt)*: standardized business entities  
-- **Marts** *(planned with dbt)*: aggregated, business-facing datasets  
+- **Staging** *(dbt)*: cleaned, structured tables  
+- **Core** *(dbt)*: standardized business entities  
+- **Marts** *(dbt)*: aggregated, business-facing datasets  
 
 ---
 
@@ -54,41 +52,48 @@ Although traditional DWH staging often lands tabular data directly, this project
 - **Python** (data ingestion, utilities)  
 - **Apache Airflow** (scheduling & orchestration)  
 - **PostgreSQL** (DWH)  
-- **dbt** (transformations — planned)  
+- **dbt** (transformations — staging → core → marts)  
 - **Docker & Docker Compose** (containerization & local environment setup)  
-- *(Future)* **Grafana + Prometheus** for monitoring  
+- *(Planned)* **Grafana + Prometheus** for monitoring  
+- *(Planned)* **GitHub Actions** for CI/CD  
 
 ---
 
 ## Project Status & Progress
-This project is a **work in progress**.  
 
-### Completed
-- Set up **Docker Compose** for Airflow, Postgres (DWH with Landing schema), and supporting services  
-- Created **Landing schema initialization** with SQL scripts  
-- Implemented a **recursive validation utility** to check API data against predefined schemas  
-- Built and tested **utility functions** for DAG tasks  
-- Developed **Landing ingestion DAG** with 3 tasks:  
-  - Ingest Products  
-  - Ingest Users  
-  - Ingest Orders  
-- Successfully ran the DAG in Airflow, with all tasks succeeding  
+### ✅ Completed
+- Docker Compose setup for Airflow + PostgreSQL  
+- Bronze (Landing) schema with JSON payloads + metadata  
+- Recursive validation utility for JSON schema checks  
+- Ingestion DAG (Products, Users, Orders) with full lineage + logging  
+- Staging models for carts, products, and users (via dbt)  
+- Core schema design (star schema with fact + dimensions)  
 
-### Planned (High-Level Vision)
-- **Staging layer** with dbt for standardized and structured transformations  
-- **Core + Marts layers** with dbt for aggregated and business-ready models  
-- **Dashboards & monitoring** for both pipeline health and analytics  
-- **Testing & CI/CD** for long-term reliability  
+### 🔜 In Progress / Planned
+- **Marts models in dbt** for aggregated business reporting  
+- **Dashboards / BI**: sample charts (e.g., order volume, sales trends, product performance)  
+- **Lineage & Documentation**: dbt Docs + screenshots of DAGs and dbt lineage graph  
+- **CI/CD**: GitHub Actions for automated dbt tests, builds, and Airflow DAG validation  
+- **Monitoring**: Prometheus + Grafana dashboards for DAG health, latency, failures  
 
 ---
 
 ## Next Steps Roadmap (Actionable To-Do)
-- [ ] **Design Staging layer with dbt** (normalize product, user, and order tables)  
-- [ ] **Implement Core + Marts layers** with aggregated metrics (sales trends, order volume by category, etc.)  
-- [ ] **Add monitoring** with Grafana + Prometheus (track DAG runs, task failures, latency)  
-- [ ] **Expand ingestion** by adding more data sources like real-time currency exchange rate APIs or simulate more batches with synthetic data  
-- [ ] **Implement CI/CD** for automated testing and deployment (GitHub Actions or similar)  
-- [ ] **Documentation & Tutorials** (how to run locally, example queries, dashboard screenshots)  
+- [ ] Add **Marts layer with dbt** (e.g., fact_sales, dim_products, dim_users)  
+- [ ] Create **sample BI dashboard** (Metabase, Superset, or Power BI) using marts tables  
+- [ ] Capture **screenshots** of dbt lineage graph, Airflow DAG runs, and BI dashboards  
+- [ ] Set up **CI/CD pipeline** (GitHub Actions for dbt + Airflow checks)  
+- [ ] Implement **monitoring stack** (Prometheus, Grafana)  
+- [ ] Finalize **documentation** with tutorials, screenshots, and example queries  
+
+---
+
+## Documentation & Visuals
+This section will include:  
+- ✅ **Airflow DAG screenshots** (pipeline runs, task dependencies)  
+- ✅ **dbt lineage graph** (staging → core → marts)  
+- ✅ **Sample queries + screenshots** (business KPIs, trends)  
+- 🔜 **BI dashboard snapshots** (charts, metrics from marts tables)  
 
 ---
 
@@ -96,28 +101,28 @@ This project is a **work in progress**.
 This project is built to run locally, but its design already considers scalability and reliability.  
 Here’s how it could evolve into a **production or cloud environment**:
 
-- **Orchestration & Workflow Management** → 
-  Deploy Airflow on **Amazon MWAA** instead of Docker Compose, with support for **CeleryExecutor** (distributed workers) or **KubernetesExecutor** (auto-scaled pods per task). Alternative serverless orchestration with **AWS Step Functions** for lightweight pipelines.
+- **Orchestration & Workflow Management** →  
+  Deploy Airflow on **Amazon MWAA** instead of Docker Compose, with support for **CeleryExecutor** (distributed workers) or **KubernetesExecutor** (auto-scaled pods per task). Alternative serverless orchestration with **AWS Step Functions** for lightweight pipelines.  
 
-- **Data Ingestion & Transformation** → 
-  Replace local Python ETL with **AWS Glue** (ETL + catalog) for serverless, scalable transformations. For real-time ingestion, integrate **Kinesis** or **MSK (Managed Kafka)**.
+- **Data Ingestion & Transformation** →  
+  Replace local Python ETL with **AWS Glue** (ETL + catalog) for serverless, scalable transformations. For real-time ingestion, integrate **Kinesis** or **MSK (Managed Kafka)**.  
 
-- **Data Storage & Warehousing** → 
-  Replace PostgreSQL with **Amazon Redshift** for analytical workloads. Use **Athena** for serverless SQL on S3 data that acts as the bronze layer (via the Glue Data Catalog). In this local project, I simulated this Bronze concept inside Postgres with raw JSON storage. Store raw/curated datasets in **S3** with partitioned **Parquet/ORC** formats.
+- **Data Storage & Warehousing** →  
+  Replace PostgreSQL with **Amazon Redshift** for analytical workloads. Use **Athena** for serverless SQL on S3 data that acts as the bronze layer (via the Glue Data Catalog). In this local project, I simulated this Bronze concept inside Postgres with raw JSON storage. Store raw/curated datasets in **S3** with partitioned **Parquet/ORC** formats.  
 
-- **Data Quality & Governance** → 
-  Integrate **AWS Glue Data Quality** or **Great Expectations** for schema validation. In file-based pipelines this is typically applied at the S3 landing zone before loading to Bronze. In this project’s design (API → Bronze DB with JSON storage), schema validation runs **between extraction and loading**, ensuring malformed records are rejected before persistence. Metadata, lineage, and quality results are tracked inside Bronze.
+- **Data Quality & Governance** →  
+  Integrate **AWS Glue Data Quality** or **Great Expectations** for schema validation. In file-based pipelines this is typically applied at the S3 landing zone before loading to Bronze. In this project’s design (API → Bronze DB with JSON storage), schema validation runs **between extraction and loading**, ensuring malformed records are rejected before persistence. Metadata, lineage, and quality results are tracked inside Bronze.  
 
-- **Monitoring & Observability** → 
-  Operational monitoring is handled via **Airflow task logs** and retries. Data-centric monitoring is enforced through the **logging table** (row counts, rejected records, timestamps). In production, this could be extended with **Amazon CloudWatch** or **AWS X-Ray** for centralized observability.
+- **Monitoring & Observability** →  
+  Operational monitoring is handled via **Airflow task logs** and retries. Data-centric monitoring is enforced through the **logging table** (row counts, rejected records, timestamps). In production, this could be extended with **Amazon CloudWatch** or **AWS X-Ray** for centralized observability.  
 
-- **Security & Compliance** → 
-  Encrypt data with **KMS** and manage permissions via **IAM policies**. 
-  Control networking with **VPC, subnets,  and security groups**.
+- **Security & Compliance** →  
+  Encrypt data with **KMS** and manage permissions via **IAM policies**.  
+  Control networking with **VPC, subnets,  and security groups**.  
 
-- **Cost Optimization** →
+- **Cost Optimization** →  
   Implement **S3 lifecycle policies** (transition to IA/Glacier for archival data).  
   Use **Redshift pause/resume** for non-production environments.  
-  Leverage **Spot instances** for batch processing workloads.
+  Leverage **Spot instances** for batch processing workloads.  
 
 ---
