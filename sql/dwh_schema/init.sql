@@ -3,7 +3,7 @@ CREATE SCHEMA IF NOT EXISTS bronze;
 CREATE TABLE IF NOT EXISTS bronze.bronze_products (
     -- Store complete API response
     id SERIAL PRIMARY KEY,
-    api_product_id VARCHAR(50),
+    api_product_id INT,
     raw_json JSONB,   
     
     -- Data Governance & Lineage
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS bronze.bronze_products (
 
 CREATE TABLE IF NOT EXISTS bronze.bronze_users (
     id SERIAL PRIMARY KEY,
-    api_user_id VARCHAR(50),
+    api_user_id INT,
     raw_json JSONB,   
     
     -- Data Governance & Lineage
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS bronze.bronze_users (
 
 CREATE TABLE IF NOT EXISTS bronze.bronze_carts (
     id SERIAL PRIMARY KEY,
-    api_cart_id VARCHAR(50),
+    api_cart_id INT,
     raw_json JSONB,   
     
     -- Data Governance & Lineage

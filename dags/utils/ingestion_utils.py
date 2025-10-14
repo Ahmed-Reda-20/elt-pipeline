@@ -33,9 +33,16 @@ def ingest_api_data(batch_id, api_endpoint, table_name, api_id_column, source_sy
         data = fetch_api_data(api_endpoint)
     except Exception as e:
         return f"FAILED: API request failed - {type(e).__name__}: {e}"
+    
+    print(f"DEBUG: Total records from API = {len(data)}")
+    print(f"DEBUG: Unique IDs from API = {len(set(int(p['id']) for p in data))}")
+
     #Checking if the fetched records has any new id then appending new records in a list.
     last_id = int(last_id) if last_id is not None else 0
     incremental_data = [p for p in data if int(p['id']) > last_id]
+
+    print(f"DEBUG: After filtering (> {last_id}), records to insert = {len(incremental_data)}")
+    print(f"DEBUG: IDs to insert = {sorted([int(p['id']) for p in incremental_data])}")
 
     if not incremental_data:
         return f"SUCCESS: No new data from {api_endpoint}"

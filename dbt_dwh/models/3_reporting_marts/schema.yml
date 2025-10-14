@@ -97,30 +97,22 @@ models:
         description: "Product rating grouped into business categories for analysis"
         tests:
           - accepted_values:
-              arguments:
-                values: ['High Rated (4.5-5.0)', 'Medium Rated (3.5-4.4)', 'Low Rated (2.5-3.4)', 'Poor Rated (<2.5)']
-              name: "valid_rating_categories"
-              
+              values: ['High Rated (4.5-5.0)', 'Medium Rated (3.5-4.4)', 'Low Rated (2.5-3.4)', 'Poor Rated (<2.5)']
+            
       - name: price_tier
         description: "Product price segmentation for analysis"
         tests:
           - accepted_values:
-              arguments:
                 values: ['Premium', 'Mid-Range', 'Standard', 'Budget']
-              name: "valid_price_tiers"
               
       - name: order_value_category
         description: "Order value segmentation"
         tests:
           - accepted_values:
-              arguments:
                 values: ['High Value Order', 'Medium Value Order', 'Standard Order']
-              name: "valid_order_value_categories"
               
       - name: purchase_size_category
         description: "Purchase quantity segmentation"
         tests:
           - accepted_values:
-              arguments:
                 values: ['Bulk Purchase', 'Multi-Unit Purchase', 'Multiple Items', 'Single Item']
-              name: "valid_purchase_size_categories"
