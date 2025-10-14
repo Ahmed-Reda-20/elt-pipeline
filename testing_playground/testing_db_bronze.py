@@ -1,14 +1,14 @@
 import psycopg2
 
 conn = psycopg2.connect(
-    host="1016F610577F391",
+    host="localhost",
     port=5433,
-    dbname="etl_bronze_db",
+    dbname="elt_dwh",
     user="airflow",
     password="airflow"
 )
 cur = conn.cursor()
-cur.execute("SELECT * FROM bronze_products LIMIT 10;")
+cur.execute("SELECT * FROM bronze.bronze_products LIMIT 10;")
 print(cur.fetchall())
 cur.close()
 conn.close()
