@@ -62,15 +62,14 @@ To solve this, the project introduces an automated **ELT pipeline** that:
 ## Project Status & Progress
 
 ### ✅ Completed
-- Docker Compose setup for Airflow + PostgreSQL  
+- Docker Compose setup for Airflow + PostgreSQL + pgadmin 
 - Bronze (Landing) schema with JSON payloads + metadata  
 - Recursive validation utility for JSON schema checks  
 - Ingestion DAG (Products, Users, Orders) with full lineage + logging  
 - Staging models for carts, products, and users (via dbt)  
 - Core schema design (star schema with fact + dimensions)  
-
+- Sales reporting mart with dbt for aggregated business reporting
 ### 🔜 In Progress / Planned
-- **Marts models in dbt** for aggregated business reporting  
 - **Dashboards / BI**: sample charts (e.g., order volume, sales trends, product performance)  
 - **Lineage & Documentation**: dbt Docs + screenshots of DAGs and dbt lineage graph  
 - **CI/CD**: GitHub Actions for automated dbt tests, builds, and Airflow DAG validation  
@@ -79,7 +78,6 @@ To solve this, the project introduces an automated **ELT pipeline** that:
 ---
 
 ## Next Steps Roadmap (Actionable To-Do)
-- [ ] Add **Marts layer with dbt** (e.g., fact_sales, dim_products, dim_users)  
 - [ ] Create **sample BI dashboard** (Metabase, Superset, or Power BI) using marts tables  
 - [ ] Capture **screenshots** of dbt lineage graph, Airflow DAG runs, and BI dashboards  
 - [ ] Set up **CI/CD pipeline** (GitHub Actions for dbt + Airflow checks)  
