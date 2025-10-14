@@ -1,5 +1,3 @@
-{{ config(materialized='table') }}
-
 SELECT
     cart_id,
     user_id,

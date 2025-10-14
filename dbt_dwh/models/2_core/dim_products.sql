@@ -3,10 +3,8 @@ SELECT
     product_title,
     product_category,
     product_description,
-    product_price,
     product_image,
-    product_rating,
-    product_rating_count,
+    
 
     -- Metadata
     bronze_id,

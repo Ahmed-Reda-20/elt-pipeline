@@ -1,0 +1,126 @@
+version: 2
+
+models:
+  - name: mart_sales_overview
+    description: |
+      # Sales Reporting Mart
+      
+      ## Business Context
+      Created in response to sales team request for self-service sales analytics.
+      Provides clean, privacy-compliant data for daily performance tracking.
+      
+      ## Data Quality Standards
+      - All revenue calculations verified daily
+      - Rating categories validated against source ratings
+      - No future-dated sales transactions
+      - All required dimensions populated
+      
+      ## Stakeholder Collaboration
+      - **Sales Team**: Identified required metrics and segmentation needs
+      - **Data Governance**: Approved column selection and PII handling
+      - **Legal Team**: Verified privacy compliance for business-wide access
+      
+      ## Design Principles
+      - Include only analytically useful columns
+      - Exclude all PII and sensitive information
+      - Optimize for business user comprehension
+      - Maintain data privacy and security
+      
+      ## Usage Guidelines
+      - Suitable for entire sales organization
+      - Refresh daily at 9 AM EET
+      - Contact Data Team for new metric requests
+
+    columns:
+      - name: cart_item_id
+        description: "Unique identifier for each cart line item"
+        tests:
+          - unique
+          - not_null
+          
+      - name: cart_id
+        description: "Shopping cart identifier"
+        tests:
+          - not_null
+          
+      - name: user_id
+        description: "User identifier (foreign key)"
+        tests:
+          - not_null
+          
+      - name: product_id
+        description: "Product identifier (foreign key)"
+        tests:
+          - not_null
+          
+      - name: sale_date
+        description: "Date of sales transaction. Enables daily performance tracking and time-based analysis."
+        tests:
+          - not_null
+              
+      - name: customer_name
+        description: "Privacy-safe customer identifier"
+        tests:
+          - not_null
+          
+      - name: customer_city
+        description: "Customer city for geographic segmentation"
+        tests:
+          - not_null
+          
+      - name: product_category
+        description: "Product category for performance analysis"
+        tests:
+          - not_null
+              
+      - name: quantity
+        description: "Number of items purchased"
+        tests:
+          - not_null
+              
+      - name: unit_price
+        description: "Price per unit at time of sale"
+        tests:
+          - not_null
+              
+      - name: line_revenue
+        description: "Calculated revenue (quantity × unit_price). Used for sales performance metrics and forecasting."
+        tests:
+          - not_null
+              
+      - name: product_rating
+        description: "Product rating from customers (0-5 scale)"
+        tests:
+          - not_null
+              
+      - name: rating_category
+        description: "Product rating grouped into business categories for analysis"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['High Rated (4.5-5.0)', 'Medium Rated (3.5-4.4)', 'Low Rated (2.5-3.4)', 'Poor Rated (<2.5)']
+              name: "valid_rating_categories"
+              
+      - name: price_tier
+        description: "Product price segmentation for analysis"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Premium', 'Mid-Range', 'Standard', 'Budget']
+              name: "valid_price_tiers"
+              
+      - name: order_value_category
+        description: "Order value segmentation"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['High Value Order', 'Medium Value Order', 'Standard Order']
+              name: "valid_order_value_categories"
+              
+      - name: purchase_size_category
+        description: "Purchase quantity segmentation"
+        tests:
+          - accepted_values:
+              arguments:
+                values: ['Bulk Purchase', 'Multi-Unit Purchase', 'Multiple Items', 'Single Item']
+              name: "valid_purchase_size_categories"
