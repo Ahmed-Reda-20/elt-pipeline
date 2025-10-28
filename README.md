@@ -59,7 +59,7 @@ The pipeline follows a straightforward flow: **API → Airflow → PostgreSQL (4
 ### Detailed Technical Architecture
 
 <p align="center">
-<img src="./docs/airflow_elt_diagram.drawio.png" alt="Pipeline Architecture" width="600"/>
+<img src="./docs/airflow_elt_diagram.png" alt="Pipeline Architecture" width="600"/>
 </p>
 
 - **Landing**: raw JSON payloads with metadata  
