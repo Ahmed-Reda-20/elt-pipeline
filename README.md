@@ -96,7 +96,7 @@ This project simulates a **retail company** dependent on the FakeStore API for p
 
 ---
 
-## Architecture
+## Architecture and Modeling
 
 ### High-Level Overview
 
@@ -118,6 +118,12 @@ This project simulates a **retail company** dependent on the FakeStore API for p
 - **Transformation:** dbt (13 models: 3 staging, 4 core, 1 mart)
 - **Quality:** 47 automated tests (uniqueness, referential integrity, business rules)
 - **Logging:** Centralized ingestion tracking (batch IDs, row counts, timestamps)
+
+### Data Model
+
+<p align="center">
+<img src="docs\diagram-export-11-11-2025-6_18_39-PM.png" alt="Star Schema" width="1400"/>
+</p>
 
 ---
 
